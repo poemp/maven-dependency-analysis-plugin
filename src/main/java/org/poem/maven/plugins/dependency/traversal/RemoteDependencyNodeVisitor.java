@@ -65,7 +65,8 @@ public class RemoteDependencyNodeVisitor implements DependencyNodeVisitor {
         ArtifactDto artifactDto = ArtifactDto.build(artifact);
         artifactDto.setChild(visit(node.getChildren()));
         artifactDtos.add(artifactDto);
-        writer.write(JSONObject.toJSONString(artifactDtos));
+//        writer.write(JSONObject.toJSONString(artifactDtos));
+        System.out.println(JSONObject.toJSONString(artifactDtos));
         return true;
     }
 
