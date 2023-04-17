@@ -9,6 +9,7 @@ import java.util.Collection;
 
 /**
  * Maven project dependency graph builder API, neutral against Maven 2 or Maven 3.
+ *
  * @author poem
  */
 public interface DependencyGraphBuilder {
@@ -17,7 +18,7 @@ public interface DependencyGraphBuilder {
      * Build the dependency graph.
      *
      * @param buildingRequest the buildingRequest
-     * @param filter artifact filter (can be <code>null</code>)
+     * @param filter          artifact filter (can be <code>null</code>)
      * @return the dependency graph
      * @throws DependencyGraphBuilderException if some of the dependencies could not be resolved.
      */
@@ -25,9 +26,9 @@ public interface DependencyGraphBuilder {
             throws DependencyGraphBuilderException;
 
     /**
-     *
+     * Build the dependency graph.
      * @param buildingRequest the buildingRequest
-     * @param filter artifact filter (can be <code>null</code>)
+     * @param filter          artifact filter (can be <code>null</code>)
      * @param reactorProjects ignored
      * @return the dependency graph
      * @throws DependencyGraphBuilderException if some of the dependencies could not be resolved.
