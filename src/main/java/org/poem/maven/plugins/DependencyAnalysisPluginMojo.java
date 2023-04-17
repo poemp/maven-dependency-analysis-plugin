@@ -116,8 +116,7 @@ public class DependencyAnalysisPluginMojo extends AbstractMojo {
                 outputFile.getParentFile().mkdirs();
 
                 try (Writer writer = new FileWriter(outputFile)) {
-                    node.accept(new SerializingDependencyNodeVisitor(writer,
-                            SerializingDependencyNodeVisitor.STANDARD_TOKENS));
+                    node.accept(new SerializingDependencyNodeVisitor(writer,SerializingDependencyNodeVisitor.STANDARD_TOKENS));
                 }
             }
         } catch (Exception e) // Catch all is good enough for IT

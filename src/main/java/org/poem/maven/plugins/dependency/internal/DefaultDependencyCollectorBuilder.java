@@ -213,6 +213,7 @@ public class DefaultDependencyCollectorBuilder implements DependencyCollectorBui
             ignoredScope = (String) node.getData().get(VerboseJavaScopeSelector.REDUCED_SCOPE);
         }
 
+        //冲突数据
         ConflictData data = new ConflictData(winnerVersion, ignoredScope);
 
         VerboseDependencyNode current = new VerboseDependencyNode(

@@ -6,10 +6,27 @@ import org.poem.maven.plugins.dependency.DependencyNode;
 
 import java.util.List;
 
+/**
+ * 详细 依赖 节点
+ */
 class VerboseDependencyNode extends DefaultDependencyNode {
 
+    /**
+     * 冲突
+     */
     private final ConflictData data;
 
+    /**
+     * 构建函数
+     * @param parent 父级节点
+     * @param artifact  节点 Artifact 信息
+     * @param premanagedVersion 获取在应用依赖项管理（如果有）之前指定依赖项节点的版本或版本范围
+     * @param premanagedScope 获取在应用依赖项管理（如果有）之前指定依赖项节点的 返回
+     * @param versionConstraint
+     * @param optional  是否可选
+     * @param exclusions 排除依赖列表
+     * @param data
+     */
     VerboseDependencyNode(
             DependencyNode parent,
             Artifact artifact,
