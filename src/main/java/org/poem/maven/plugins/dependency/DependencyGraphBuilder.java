@@ -9,11 +9,9 @@ import java.util.Collection;
 
 /**
  * Maven project dependency graph builder API, neutral against Maven 2 or Maven 3.
- *
- * @author poem
+ * @author eventec
  */
 public interface DependencyGraphBuilder {
-
     /**
      * Build the dependency graph.
      *
