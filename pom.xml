@@ -13,4 +13,7 @@
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
+    <description>
+        maven依赖分析插件，可以上传到分析服务器，也可以在本地检查，打印在控制台或者是启动web分析
+    </description>
 </project>
