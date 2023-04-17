@@ -22,6 +22,7 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.model.Exclusion;
 import org.poem.maven.plugins.dependency.DependencyNode;
 import org.poem.maven.plugins.dependency.traversal.DependencyNodeVisitor;
+import org.poem.maven.plugins.dependency.traversal.SerializingDependencyNodeVisitor;
 
 import java.io.IOException;
 import java.util.List;
@@ -107,15 +108,19 @@ public class DefaultDependencyNode implements DependencyNode {
      */
     @Override
     public boolean accept(DependencyNodeVisitor visitor) throws IOException {
-        if (visitor.visit(this)) {
-            for (DependencyNode child : getChildren()) {
-                if (!child.accept(visitor)) {
-                    break;
+        //本地文件写入
+        if (visitor instanceof SerializingDependencyNodeVisitor){
+            if (visitor.visit(this)) {
+                for (DependencyNode child : getChildren()) {
+                    if (!child.accept(visitor)) {
+                        break;
+                    }
                 }
             }
+            return visitor.endVisit(this);
         }
-
-        return visitor.endVisit(this);
+        visitor.visit(this);
+        return true;
     }
 
     /**

@@ -1,5 +1,7 @@
 package org.poem.maven.plugins.dependency.remote;
 
+import org.apache.maven.plugin.logging.Log;
+
 import java.io.IOException;
 import java.io.Writer;
 
@@ -10,6 +12,21 @@ import java.io.Writer;
  */
 public class RemoteInfoWriter  extends Writer {
 
+
+
+    private String remoteUrl;
+
+    private Log log;
+    /**
+     * 远程地址
+     * @param remoteUrl
+     */
+    public RemoteInfoWriter(String remoteUrl, Log log ) {
+        super();
+        this.remoteUrl = remoteUrl;
+        this.log = log;
+    }
+
     /**
      * 发送数据
      * @param cbuf 发送字节
@@ -19,7 +36,7 @@ public class RemoteInfoWriter  extends Writer {
      */
     @Override
     public void write(char[] cbuf, int off, int len) throws IOException {
-
+        log.info(new String(cbuf));
     }
 
     /**

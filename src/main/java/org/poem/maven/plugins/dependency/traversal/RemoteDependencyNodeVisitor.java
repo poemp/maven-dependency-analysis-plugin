@@ -1,61 +1,71 @@
 package org.poem.maven.plugins.dependency.traversal;
 
+import com.alibaba.fastjson2.JSONObject;
+import org.apache.maven.artifact.Artifact;
 import org.poem.maven.plugins.dependency.DependencyNode;
+import org.poem.maven.plugins.dependency.internal.dto.ArtifactDto;
 import org.poem.maven.plugins.dependency.remote.RemoteInfoWriter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 远程信息
  * remote analysis plugin
+ *
  * @author poem
  */
-public class RemoteDependencyNodeVisitor implements DependencyNodeVisitor{
+public class RemoteDependencyNodeVisitor implements DependencyNodeVisitor {
 
     /**
      * The writer to serialize to.
      */
     private final RemoteInfoWriter writer;
 
-    /**
-     * The tokens to use when serializing the dependency graph.
-     */
-    private final SerializingDependencyNodeVisitor.GraphTokens tokens;
-
-    /**
-     * The depth of the currently visited dependency node.
-     */
-    private int depth;
 
     public RemoteDependencyNodeVisitor(RemoteInfoWriter writer, SerializingDependencyNodeVisitor.GraphTokens tokens) {
         this.writer = writer;
-        this.tokens = tokens;
     }
 
     /**
-     * Writes the necessary tokens to indent the specified dependency node to this visitor's writer.
-     *
-     * @param node the dependency node to indent
+     * 解析
+     * @param dependencyNodes
+     * @return
      */
-    private void indent(DependencyNode node) throws IOException {
-        for (int i = 1; i < depth; i++) {
-            writer.write(tokens.getFillIndent(isLast(node, i)));
+    private List<ArtifactDto> visit(List<DependencyNode> dependencyNodes) throws IOException {
+        List<ArtifactDto> artifactDtos = new ArrayList<>();
+        for (DependencyNode dependencyNode : dependencyNodes) {
+            ArtifactDto artifactDto = ArtifactDto.build(dependencyNode.getArtifact());
+            if (!dependencyNode.accept(this)) {
+                artifactDtos.add(artifactDto);
+                break;
+            }
+            List<DependencyNode> children = dependencyNode.getChildren();
+            if (children != null && children.size() > 0){
+                List<ArtifactDto> childrenArtifacts = visit(children);
+                artifactDto.setChild(childrenArtifacts);
+                artifactDtos.add(artifactDto);
+            }
         }
-
-        if (depth > 0) {
-            writer.write(tokens.getNodeIndent(isLast(node)));
-        }
+        return artifactDtos;
     }
 
+    /**
+     * 解析数据
+     *
+     * @param node the dependency node to visit
+     * @return
+     * @throws IOException
+     */
     @Override
     public boolean visit(DependencyNode node) throws IOException {
-        indent(node);
-
-        writer.write(node.toNodeString());
-
-        depth++;
-
+        List<ArtifactDto> artifactDtos = new ArrayList<>();
+        Artifact artifact = node.getArtifact();
+        ArtifactDto artifactDto = ArtifactDto.build(artifact);
+        artifactDto.setChild(visit(node.getChildren()));
+        artifactDtos.add(artifactDto);
+        writer.write(JSONObject.toJSONString(artifactDtos));
         return true;
     }
 
@@ -63,45 +73,5 @@ public class RemoteDependencyNodeVisitor implements DependencyNodeVisitor{
     public boolean endVisit(DependencyNode node) {
 
         return true;
-    }
-    /**
-     * Gets whether the specified dependency node is the last of its siblings.
-     *
-     * @param node the dependency node to check
-     * @return <code>true</code> if the specified dependency node is the last of its last siblings
-     */
-    private boolean isLast(DependencyNode node) {
-
-        DependencyNode parent = node.getParent();
-
-        boolean last;
-
-        if (parent == null) {
-            last = true;
-        } else {
-            List<DependencyNode> siblings = parent.getChildren();
-
-            last = (siblings.indexOf(node) == siblings.size() - 1);
-        }
-
-        return last;
-    }
-    /**
-     * Gets whether the specified dependency node ancestor is the last of its siblings.
-     *
-     * @param node the dependency node whose ancestor to check
-     * @param ancestorDepth the depth of the ancestor of the specified dependency node to check
-     * @return <code>true</code> if the specified dependency node ancestor is the last of its siblings
-     */
-    private boolean isLast(DependencyNode node, int ancestorDepth) {
-        // TODO: remove node argument and calculate from visitor calls only
-
-        int distance = depth - ancestorDepth;
-
-        while (distance-- > 0) {
-            node = node.getParent();
-        }
-
-        return isLast(node);
     }
 }
