@@ -95,6 +95,14 @@ public class DependencyAnalysisPluginMojo extends AbstractMojo {
         ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
         buildingRequest.setProject(project);
         log.info("============ hello dependency graph========== ");
+        log.info(">>>> session:"+ session);
+        log.info(">>>> project-name:"+ project.getName());
+        log.info(">>>> project-version:"+ project.getVersion());
+        log.info(">>>> project-artifactId:"+ project.getArtifactId());
+        log.info(">>>> project-group:"+ project.getGroupId());
+        log.info(">>>> project-name:"+ project.getName());
+        log.info(">>>> verbose:"+ verbose);
+        log.info(">>>> outputFile:"+ outputFile);
         try {
             //依赖节点
             DependencyNode node;
