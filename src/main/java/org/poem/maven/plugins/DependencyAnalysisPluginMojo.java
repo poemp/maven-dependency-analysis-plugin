@@ -29,6 +29,7 @@ import java.io.IOException;
 /**
  * Goal which touches a timestamp file.
  *
+ * @author poem
  * @goal touch
  * @phase process-sources
  */
