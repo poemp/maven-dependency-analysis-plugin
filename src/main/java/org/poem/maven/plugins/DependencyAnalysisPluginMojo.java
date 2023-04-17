@@ -16,6 +16,7 @@ package org.poem.maven.plugins;
  * limitations under the License.
  */
 
+import com.alibaba.fastjson2.JSONObject;
 import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
@@ -119,6 +120,7 @@ public class DependencyAnalysisPluginMojo extends AbstractMojo {
                     node.accept(new SerializingDependencyNodeVisitor(writer,SerializingDependencyNodeVisitor.STANDARD_TOKENS));
                 }
             }
+            log.info(JSONObject.toJSONString(node));
         } catch (Exception e) // Catch all is good enough for IT
         {
             throw new MojoExecutionException("Failed to build dependency graph", e);

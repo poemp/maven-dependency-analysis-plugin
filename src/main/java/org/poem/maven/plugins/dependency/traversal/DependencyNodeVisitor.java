@@ -3,6 +3,8 @@ package org.poem.maven.plugins.dependency.traversal;
 
 import org.poem.maven.plugins.dependency.DependencyNode;
 
+import java.io.IOException;
+
 /**
  * Defines a hierarchical visitor for processing dependency node trees.
  *
@@ -16,7 +18,7 @@ public interface DependencyNodeVisitor {
      * @return <code>true</code> to visit the specified dependency node's children, <code>false</code> to skip the
      *         specified dependency node's children and proceed to its next sibling
      */
-    boolean visit(DependencyNode node);
+    boolean visit(DependencyNode node) throws IOException;
 
     /**
      * Ends the visit to to the specified dependency node.
@@ -26,4 +28,6 @@ public interface DependencyNodeVisitor {
      *         specified dependency node's next siblings and proceed to its parent
      */
     boolean endVisit(DependencyNode node);
+
+
 }

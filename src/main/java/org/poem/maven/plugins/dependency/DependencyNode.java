@@ -4,6 +4,7 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.model.Exclusion;
 import org.poem.maven.plugins.dependency.traversal.DependencyNodeVisitor;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -35,7 +36,8 @@ public interface DependencyNode {
      * @return the visitor result of ending the visit to this node
      * @since 1.1
      */
-    boolean accept(DependencyNodeVisitor visitor);
+    boolean accept(DependencyNodeVisitor visitor) throws IOException;
+
 
     /**
      * Gets the parent dependency node of this dependency node.

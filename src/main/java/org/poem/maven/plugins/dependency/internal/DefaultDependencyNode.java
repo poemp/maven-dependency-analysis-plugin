@@ -23,6 +23,7 @@ import org.apache.maven.model.Exclusion;
 import org.poem.maven.plugins.dependency.DependencyNode;
 import org.poem.maven.plugins.dependency.traversal.DependencyNodeVisitor;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -85,7 +86,10 @@ public class DefaultDependencyNode implements DependencyNode {
         this.exclusions = exclusions;
     }
 
-    // user to refer to winner
+    /**
+     * user to refer to winner
+     * @param artifact
+     */
     public DefaultDependencyNode(Artifact artifact) {
         this.artifact = artifact;
         this.parent = null;
@@ -102,7 +106,7 @@ public class DefaultDependencyNode implements DependencyNode {
      * @since 1.1
      */
     @Override
-    public boolean accept(DependencyNodeVisitor visitor) {
+    public boolean accept(DependencyNodeVisitor visitor) throws IOException {
         if (visitor.visit(this)) {
             for (DependencyNode child : getChildren()) {
                 if (!child.accept(visitor)) {

@@ -71,12 +71,6 @@ class VerboseDependencyNode extends DefaultDependencyNode {
             appender.append("scope not updated to ", data.getIgnoredScope());
         }
 
-        //        if ( getVersionSelectedFromRange() != null )
-        //        {
-        //            appender.append( "version selected from range ", getVersionSelectedFromRange().toString() );
-        //            appender.append( "available versions ", getAvailableVersions().toString() );
-        //        }
-
         if (!included) {
             String winnerVersion = data.getWinnerVersion();
             if (winnerVersion.equals(getArtifact().getVersion())) {
