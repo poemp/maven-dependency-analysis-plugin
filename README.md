@@ -1,2 +1,7 @@
-# maven-dependency-analysis-plugin
-maven 依赖分析插件
+# dependency-analysis-maven-plugin
+
+## How To Use
+
+````
+use command:  maven dependency-analysis:analysis 
+````
