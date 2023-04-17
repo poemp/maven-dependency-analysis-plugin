@@ -3,7 +3,7 @@
 ## How To Use
 
 ````
-use command:  maven dependency-analysis:analysis 
+use command:  mvn dependency-analysis:analysis 
 ````
 
 ## Config 
