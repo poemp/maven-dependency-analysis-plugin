@@ -117,6 +117,15 @@
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.poem.maven.plugins</groupId>
+                <artifactId>dependency-analysis-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <verbose>true</verbose>
+                    <analysisUrl>http://127.0.0.1</analysisUrl>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
