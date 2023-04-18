@@ -22,6 +22,8 @@
 
         <mavenVersion>3.5.2</mavenVersion>
         <resolverVersion>1.0.0.v20140518</resolverVersion>
+
+        <httpclient.version>4.5.13</httpclient.version>
     </properties>
 
     <dependencies>
@@ -91,6 +93,11 @@
             <artifactId>fastjson2</artifactId>
             <version>2.0.27</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpclient.version}</version>
+        </dependency>
     </dependencies>
 
 
@@ -123,7 +130,7 @@
                 <version>1.0.0</version>
                 <configuration>
                     <verbose>true</verbose>
-                    <analysisUrl>http://127.0.0.1</analysisUrl>
+                    <analysisUrl>http://127.0.0.1:8000/upload </analysisUrl>
                 </configuration>
             </plugin>
         </plugins>

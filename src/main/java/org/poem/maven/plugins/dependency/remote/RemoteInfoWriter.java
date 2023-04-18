@@ -1,6 +1,7 @@
 package org.poem.maven.plugins.dependency.remote;
 
 import org.apache.maven.plugin.logging.Log;
+import org.poem.maven.plugins.utils.HttpClientUtils;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -36,7 +37,10 @@ public class RemoteInfoWriter  extends Writer {
      */
     @Override
     public void write(char[] cbuf, int off, int len) throws IOException {
-        log.info(new String(cbuf));
+        log.info("Upload Dependencies To:"+ remoteUrl);
+        log.info("Upload Dependencies:  "+ new String(cbuf));
+        String result = HttpClientUtils.doPostJson(remoteUrl, new String(cbuf));
+        log.info("Upload Dependencies Result Is :" + result);
     }
 
     /**

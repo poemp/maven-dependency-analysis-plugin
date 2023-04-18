@@ -56,12 +56,10 @@ public class RemoteDependencyNodeVisitor implements DependencyNodeVisitor {
      */
     @Override
     public boolean visit(DependencyNode node) throws IOException {
-        List<ArtifactDto> artifactDtos = new ArrayList<>();
         Artifact artifact = node.getArtifact();
         ArtifactDto artifactDto = ArtifactDto.build(artifact);
         artifactDto.setChild(visit(node.getChildren()));
-        artifactDtos.add(artifactDto);
-        writer.write(JSONObject.toJSONString(artifactDtos));
+        writer.write(JSONObject.toJSONString(artifactDto));
         return true;
     }
 
