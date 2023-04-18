@@ -36,7 +36,7 @@ public class RemoteInfoWriter  extends Writer {
      */
     @Override
     public void write(char[] cbuf, int off, int len) throws IOException {
-//        log.info(new String(cbuf));
+        log.info(new String(cbuf));
     }
 
     /**

@@ -118,8 +118,9 @@ public class DefaultDependencyNode implements DependencyNode {
                 }
             }
             return visitor.endVisit(this);
+        }else {
+            visitor.visit(this);
         }
-        visitor.visit(this);
         return true;
     }
 

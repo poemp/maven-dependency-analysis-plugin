@@ -37,10 +37,6 @@ public class RemoteDependencyNodeVisitor implements DependencyNodeVisitor {
         List<ArtifactDto> artifactDtos = new ArrayList<>();
         for (DependencyNode dependencyNode : dependencyNodes) {
             ArtifactDto artifactDto = ArtifactDto.build(dependencyNode.getArtifact());
-            if (!dependencyNode.accept(this)) {
-                artifactDtos.add(artifactDto);
-                break;
-            }
             List<DependencyNode> children = dependencyNode.getChildren();
             if (children != null && children.size() > 0){
                 List<ArtifactDto> childrenArtifacts = visit(children);
@@ -65,8 +61,7 @@ public class RemoteDependencyNodeVisitor implements DependencyNodeVisitor {
         ArtifactDto artifactDto = ArtifactDto.build(artifact);
         artifactDto.setChild(visit(node.getChildren()));
         artifactDtos.add(artifactDto);
-//        writer.write(JSONObject.toJSONString(artifactDtos));
-        System.out.println(JSONObject.toJSONString(artifactDtos));
+        writer.write(JSONObject.toJSONString(artifactDtos));
         return true;
     }
 
