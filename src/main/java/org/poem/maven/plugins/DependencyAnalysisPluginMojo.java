@@ -16,7 +16,6 @@ package org.poem.maven.plugins;
  * limitations under the License.
  */
 
-import com.alibaba.fastjson2.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
 import org.apache.maven.execution.MavenSession;
