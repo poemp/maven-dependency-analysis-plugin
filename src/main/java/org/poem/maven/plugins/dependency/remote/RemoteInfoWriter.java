@@ -41,7 +41,11 @@ public class RemoteInfoWriter extends Writer {
      */
     @Override
     public void write(char[] cbuf, int off, int len) throws IOException {
-        HttpClientUtils.doPostJson(remoteUrl, new String(cbuf));
+        try {
+            HttpClientUtils.doPostJson(remoteUrl, new String(cbuf));
+        }catch (Exception ignored){
+
+        }
     }
 
     /**
