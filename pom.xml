@@ -132,6 +132,19 @@
                     <verbose>true</verbose>
                     <analysisUrl>http://127.0.0.1:8000/upload </analysisUrl>
                 </configuration>
+                <executions>
+                    <execution>
+                        <!-- 执行id -->
+                        <id>dependency-analysis-analysis</id>
+                        <!-- 生效阶段，不指定则取插件类的@Mojo注解中的defaultPhase。此处专门设定了一个与install不同的阶段值 -->
+                        <phase>install</phase>
+                        <!-- 需要运作的Goal -->
+                        <goals>
+                            <!-- 执行  mvn dependency-analysis:analysis 绑定到maven 的生命周期中 clear 生命周期 -->
+                            <goal>analysis</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
