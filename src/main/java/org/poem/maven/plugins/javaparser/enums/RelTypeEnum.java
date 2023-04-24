@@ -1,4 +1,4 @@
-package org.poem.maven.plugins.spoon.enums;
+package org.poem.maven.plugins.javaparser.enums;
 
 /**
  * Neo4j 关系类型枚举

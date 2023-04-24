@@ -1,4 +1,4 @@
-package org.poem.maven.plugins.spoon.structure;
+package org.poem.maven.plugins.javaparser.structure;
 
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.CtTypeParameter;

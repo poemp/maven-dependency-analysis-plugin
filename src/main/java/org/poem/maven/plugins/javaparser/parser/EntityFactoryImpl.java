@@ -1,13 +1,12 @@
-package org.poem.maven.plugins.spoon.parser;
+package org.poem.maven.plugins.javaparser.parser;
 
 
-import org.poem.maven.plugins.spoon.enums.CallerTypeEnum;
-import org.poem.maven.plugins.spoon.enums.EntityTypeEnum;
-import org.poem.maven.plugins.spoon.enums.RelTypeEnum;
-import org.poem.maven.plugins.spoon.enums.VariableScopeEnum;
-import org.poem.maven.plugins.spoon.relation.RelationEntity;
-import org.poem.maven.plugins.spoon.structure.*;
-import org.poem.maven.plugins.structure.*;
+import org.poem.maven.plugins.javaparser.enums.CallerTypeEnum;
+import org.poem.maven.plugins.javaparser.enums.EntityTypeEnum;
+import org.poem.maven.plugins.javaparser.enums.RelTypeEnum;
+import org.poem.maven.plugins.javaparser.enums.VariableScopeEnum;
+import org.poem.maven.plugins.javaparser.relation.RelationEntity;
+import org.poem.maven.plugins.javaparser.structure.*;
 import org.poem.maven.plugins.utils.SpoonUtil;
 import spoon.reflect.code.*;
 import spoon.reflect.declaration.*;
@@ -36,15 +35,15 @@ public class EntityFactoryImpl implements EntityFactory {
         if (entity == null) {
             entity = new ClassEntity(ctType.getPath().toString());
             entity.setName(ctType.getQualifiedName());
-            entity.setClass_type(SpoonUtil.getClassType(ctType));
+            entity.setClassType(SpoonUtil.getClassType(ctType));
             entity.setModifiers(ctType.getModifiers().toString());
             entity.setInner(ctType.getPath().toString().contains("$"));
             entity.setParameterized(ctType.isParameterized());
             entity.setShadow(ctType.isShadow());
-            entity.setSuper_class(ctType.getSuperclass());
-            entity.setAll_super_classes(SpoonUtil.getAllSuperClasses(ctType));
-            entity.setSuper_interfaces(ctType.getSuperInterfaces());
-            entity.setAll_super_interfaces(SpoonUtil.getAllSuperInterfaces(ctType));
+            entity.setSuperClass(ctType.getSuperclass());
+            entity.setAllSuperClasses(SpoonUtil.getAllSuperClasses(ctType));
+            entity.setSuperInterfaces(ctType.getSuperInterfaces());
+            entity.setAllSuperInterfaces(SpoonUtil.getAllSuperInterfaces(ctType));
             {
                 Set<? extends CtConstructor<?>> constructors = new HashSet<>();
                 if (!ctType.isInterface() && !ctType.isAnnotationType()) {
@@ -54,8 +53,8 @@ public class EntityFactoryImpl implements EntityFactory {
             }
             entity.setFields(ctType.getFields());
             entity.setMethods(ctType.getMethods());
-            entity.setType_parameters(ctType.getFormalCtTypeParameters());
-            classEntity_set.add(entity);
+            entity.setTypeParameters(ctType.getFormalCtTypeParameters());
+            CLASS_ENTITY_SET.add(entity);
         }
         return entity;
     }
@@ -65,13 +64,13 @@ public class EntityFactoryImpl implements EntityFactory {
         ConstructorEntity entity = (ConstructorEntity) getExecutableEntityBySignature(ctConstructor.getSignature());
         if (entity == null) {
             entity = new ConstructorEntity(ctConstructor.getPath().toString());
-            entity.setFull_signature(ctConstructor.getSignature());
+            entity.setFullSignature(ctConstructor.getSignature());
             entity.setModifiers(ctConstructor.getModifiers().toString());
-            entity.setDeclaration_class(ctConstructor.getDeclaringType());
+            entity.setDeclarationClass(ctConstructor.getDeclaringType());
             entity.setParameters(ctConstructor.getParameters());
-            entity.setLocal_variables(ctConstructor.getBody().getElements(new TypeFilter<>(CtLocalVariable.class)));
+            entity.setLocalVariables(ctConstructor.getBody().getElements(new TypeFilter<>(CtLocalVariable.class)));
             entity.setInvocations(ctConstructor.getBody().getElements(new TypeFilter<>(CtAbstractInvocation.class)));
-            executableEntity_set.add(entity);
+            EXECUTABLE_ENTITY_SET.add(entity);
         }
         return entity;
     }
@@ -85,12 +84,12 @@ public class EntityFactoryImpl implements EntityFactory {
             entity.setSignature(ctMethod.getSignature());
             entity.setGetter(SpoonUtil.isGetter(ctMethod.getSignature(), ctMethod.getType().getQualifiedName()));
             entity.setSetter(SpoonUtil.isSetter(ctMethod.getSignature()));
-            entity.setFull_signature(ctMethod.getDeclaringType().getQualifiedName() + "." + ctMethod.getSignature());
+            entity.setFullSignature(ctMethod.getDeclaringType().getQualifiedName() + "." + ctMethod.getSignature());
             entity.setModifiers(ctMethod.getModifiers().toString());
-            entity.setDeclaration_class(ctMethod.getDeclaringType());
+            entity.setDeclarationClass(ctMethod.getDeclaringType());
             entity.setParameters(ctMethod.getParameters());
             if (ctMethod.getBody() != null) {
-                entity.setLocal_variables(ctMethod.getBody().getElements(new TypeFilter<>(CtLocalVariable.class)));
+                entity.setLocalVariables(ctMethod.getBody().getElements(new TypeFilter<>(CtLocalVariable.class)));
                 entity.setInvocations(ctMethod.getBody().getElements(new TypeFilter<>(CtAbstractInvocation.class)));
             }
             entity.setReturn_type(ctMethod.getType());
@@ -113,7 +112,7 @@ public class EntityFactoryImpl implements EntityFactory {
                 }
                 entity.setOverride_classes(override_classes);
             }
-            executableEntity_set.add(entity);
+            EXECUTABLE_ENTITY_SET.add(entity);
         }
         return entity;
     }
@@ -131,7 +130,7 @@ public class EntityFactoryImpl implements EntityFactory {
                     entity.setDeclaration_in(parent);
                 }
             }
-            typeParameterEntity_set.add(entity);
+            TYPE_PARAMETER_ENTITY_SET.add(entity);
         }
         return entity;
     }
@@ -147,11 +146,11 @@ public class EntityFactoryImpl implements EntityFactory {
                 while (!(parent instanceof CtExecutable) && !(parent instanceof CtVariable)) {
                     parent = parent.getParent();
                 }
-                entity.setDeclaration_in(parent);
+                entity.setDeclarationIn(parent);
             }
             {
                 CtExecutableReference<?> called_executable = ctInvocation.getExecutable();
-                entity.setCalled_executable(called_executable);
+                entity.setCalledExecutable(called_executable);
                 CtTypeReference<?> called_class = called_executable.getDeclaringType();
                 if (called_class == null) {
                     CtElement parent = ctInvocation.getParent();
@@ -168,9 +167,9 @@ public class EntityFactoryImpl implements EntityFactory {
                         }
                     }
                 }
-                entity.setCalled_class(called_class);
+                entity.setCalledClass(called_class);
             }
-            entity.setArgument_types(ctInvocation.getActualTypeArguments());
+            entity.setArgumentTypes(ctInvocation.getActualTypeArguments());
             if ("target".equals(ctInvocation.getRoleInParent().getCamelCaseName()) && ctInvocation.getParent() instanceof CtInvocation) {
                 entity.setNext((CtInvocation<?>) ctInvocation.getParent());
             }
@@ -198,26 +197,26 @@ public class EntityFactoryImpl implements EntityFactory {
                                 }
                             }
                         }
-                        entity.setCaller_obj(ctVariable);
+                        entity.setCallerObj(ctVariable);
                     } else if (ctExpression instanceof CtAbstractInvocation) {
                         entity.setCallerType(CallerTypeEnum.ANONYMOUS);
-                        entity.setCaller_obj(ctExpression);
+                        entity.setCallerObj(ctExpression);
                     } else if (ctExpression instanceof CtThisAccess) {
                         entity.setCallerType(CallerTypeEnum.THIS);
-                        entity.setCaller_obj(ctExpression);
+                        entity.setCallerObj(ctExpression);
                     } else if (ctExpression instanceof CtSuperAccess) {
                         entity.setCallerType(CallerTypeEnum.SUPER);
-                        entity.setCaller_obj(ctExpression);
+                        entity.setCallerObj(ctExpression);
                     } else if (ctExpression instanceof CtArrayAccess) {
                         entity.setCallerType(CallerTypeEnum.ARRAY);
-                        entity.setCaller_obj(ctExpression);
+                        entity.setCallerObj(ctExpression);
                     } else {
                         entity.setCallerType(CallerTypeEnum.LITERAL);
-                        entity.setCaller_obj(ctExpression);
+                        entity.setCallerObj(ctExpression);
                     }
                 }
             }
-            abstractInvocationEntity_set.add(entity);
+            ABSTRACT_INVOCATION_ENTITY_SET.add(entity);
         }
         return entity;
     }
@@ -233,18 +232,18 @@ public class EntityFactoryImpl implements EntityFactory {
                 while (!(parent instanceof CtExecutable) && !(parent instanceof CtVariable)) {
                     parent = parent.getParent();
                 }
-                entity.setDeclaration_in(parent);
+                entity.setDeclarationIn(parent);
             }
             {
                 CtExecutableReference<?> called_executable = ctConstructorCall.getExecutable();
-                entity.setCalled_executable(called_executable);
-                entity.setCalled_class(called_executable.getDeclaringType());
+                entity.setCalledExecutable(called_executable);
+                entity.setCalledClass(called_executable.getDeclaringType());
             }
-            entity.setArgument_types(ctConstructorCall.getActualTypeArguments());
+            entity.setArgumentTypes(ctConstructorCall.getActualTypeArguments());
             if ("target".equals(ctConstructorCall.getRoleInParent().getCamelCaseName())) {
                 entity.setNext((CtInvocation<?>) ctConstructorCall.getParent());
             }
-            abstractInvocationEntity_set.add(entity);
+            ABSTRACT_INVOCATION_ENTITY_SET.add(entity);
         }
         return entity;
     }
@@ -271,9 +270,9 @@ public class EntityFactoryImpl implements EntityFactory {
                     list.addAll(origin.getReferencedTypes());
                     list.remove(origin);
                 }
-                entity.setContainer_items(list);
+                entity.setContainerItems(list);
             }
-            variableEntity_set.add(entity);
+            VARIABLE_ENTITY_SET.add(entity);
         }
 
         return entity;
@@ -281,7 +280,7 @@ public class EntityFactoryImpl implements EntityFactory {
 
     @Override
     public ClassEntity getClassEntityByQualifiedName(String name) {
-        for (ClassEntity classEntity : classEntity_set) {
+        for (ClassEntity classEntity : CLASS_ENTITY_SET) {
             if (classEntity.getName().equals(name)) {
                 return classEntity;
             }
@@ -291,8 +290,8 @@ public class EntityFactoryImpl implements EntityFactory {
 
     @Override
     public ExecutableEntity getExecutableEntityBySignature(String full_signature) {
-        for (ExecutableEntity executableEntity : executableEntity_set) {
-            if (executableEntity.getFull_signature().equals(full_signature)) {
+        for (ExecutableEntity executableEntity : EXECUTABLE_ENTITY_SET) {
+            if (executableEntity.getFullSignature().equals(full_signature)) {
                 return executableEntity;
             }
         }
@@ -301,21 +300,21 @@ public class EntityFactoryImpl implements EntityFactory {
 
     @Override
     public BaseEntity getEntityByAstPath(EntityTypeEnum entityType, String ast_path) {
-        Set<?> search_set = classEntity_set;
+        Set<?> search_set = CLASS_ENTITY_SET;
         switch (entityType) {
             case InvocationEntity:
             case ConstructorCallEntity:
-                search_set = abstractInvocationEntity_set;
+                search_set = ABSTRACT_INVOCATION_ENTITY_SET;
                 break;
             case MethodEntity:
             case ConstructorEntity:
-                search_set = executableEntity_set;
+                search_set = EXECUTABLE_ENTITY_SET;
                 break;
             case VariableEntity:
-                search_set = variableEntity_set;
+                search_set = VARIABLE_ENTITY_SET;
                 break;
             case TypeParameterEntity:
-                search_set = typeParameterEntity_set;
+                search_set = TYPE_PARAMETER_ENTITY_SET;
                 break;
             default:
                 break;
@@ -334,8 +333,8 @@ public class EntityFactoryImpl implements EntityFactory {
         RelationEntity entity = new RelationEntity();
         entity.setSource(source);
         entity.setTarget(target);
-        entity.setRelation_type(relType);
-        relationship_set.add(entity);
+        entity.setRelationType(relType);
+        RELATIONSHIP_SET.add(entity);
         return entity;
     }
 
@@ -344,9 +343,9 @@ public class EntityFactoryImpl implements EntityFactory {
         RelationEntity entity = new RelationEntity();
         entity.setSource(source);
         entity.setTarget(target);
-        entity.setRelation_type(relType);
+        entity.setRelationType(relType);
         entity.setProperties(properties);
-        relationship_set.add(entity);
+        RELATIONSHIP_SET.add(entity);
         return entity;
     }
 

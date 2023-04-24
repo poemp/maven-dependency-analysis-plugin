@@ -1,6 +1,6 @@
 package org.poem.maven.plugins.utils;
 
-import org.poem.maven.plugins.spoon.enums.ClassTypeEnum;
+import org.poem.maven.plugins.javaparser.enums.ClassTypeEnum;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;

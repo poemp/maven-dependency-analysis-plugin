@@ -1,4 +1,4 @@
-package org.poem.maven.plugins.spoon.enums;
+package org.poem.maven.plugins.javaparser.enums;
 
 /**
  * 实体类型枚举：

@@ -1,4 +1,4 @@
-package org.poem.maven.plugins.spoon.structure;
+package org.poem.maven.plugins.javaparser.structure;
 
 /**
  * 构造器调用点实体

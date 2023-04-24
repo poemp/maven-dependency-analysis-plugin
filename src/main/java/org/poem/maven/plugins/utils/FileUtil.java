@@ -27,7 +27,7 @@ public class FileUtil {
                 files.add(file.getAbsolutePath());
             }
         }
-        return files.toArray(String[]::new);
+        return files.toArray(new String[0]);
     }
 
     public static Properties getProperties(String path) throws IOException {

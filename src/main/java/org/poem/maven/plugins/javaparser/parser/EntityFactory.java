@@ -1,11 +1,10 @@
-package org.poem.maven.plugins.spoon.parser;
+package org.poem.maven.plugins.javaparser.parser;
 
-import org.poem.maven.plugins.spoon.enums.EntityTypeEnum;
-import org.poem.maven.plugins.spoon.enums.RelTypeEnum;
-import org.poem.maven.plugins.spoon.enums.VariableScopeEnum;
-import org.poem.maven.plugins.spoon.relation.RelationEntity;
-import org.poem.maven.plugins.spoon.structure.*;
-import org.poem.maven.plugins.structure.*;
+import org.poem.maven.plugins.javaparser.enums.EntityTypeEnum;
+import org.poem.maven.plugins.javaparser.enums.RelTypeEnum;
+import org.poem.maven.plugins.javaparser.enums.VariableScopeEnum;
+import org.poem.maven.plugins.javaparser.relation.RelationEntity;
+import org.poem.maven.plugins.javaparser.structure.*;
 
 import spoon.reflect.code.CtConstructorCall;
 import spoon.reflect.code.CtInvocation;
@@ -22,12 +21,12 @@ import java.util.Set;
  */
 public interface EntityFactory {
 
-    Set<ClassEntity> classEntity_set = new HashSet<>();
-    Set<ExecutableEntity> executableEntity_set = new HashSet<>();
-    Set<VariableEntity> variableEntity_set = new HashSet<>();
-    Set<AbstractInvocationEntity> abstractInvocationEntity_set = new HashSet<>();
-    Set<TypeParameterEntity> typeParameterEntity_set = new HashSet<>();
-    Set<RelationEntity> relationship_set = new HashSet<>();
+    Set<ClassEntity> CLASS_ENTITY_SET = new HashSet<>();
+    Set<ExecutableEntity> EXECUTABLE_ENTITY_SET = new HashSet<>();
+    Set<VariableEntity> VARIABLE_ENTITY_SET = new HashSet<>();
+    Set<AbstractInvocationEntity> ABSTRACT_INVOCATION_ENTITY_SET = new HashSet<>();
+    Set<TypeParameterEntity> TYPE_PARAMETER_ENTITY_SET = new HashSet<>();
+    Set<RelationEntity> RELATIONSHIP_SET = new HashSet<>();
 
     /**
      * 创建类实体

@@ -1,4 +1,4 @@
-package org.poem.maven.plugins.spoon.structure;
+package org.poem.maven.plugins.javaparser.structure;
 
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtElement;
@@ -17,23 +17,23 @@ public abstract class AbstractInvocationEntity extends BaseEntity {
     /**
      * 可能在方法、构造器、变量内
      */
-    private CtElement declaration_in;
+    private CtElement declarationIn;
     /**
      * 目标方法/构造器
      */
-    private CtExecutableReference<?> called_executable;
+    private CtExecutableReference<?> calledExecutable;
     /**
      * 目标方法/构造器所在的类/接口
      */
-    private CtTypeReference<?> called_class;
-    private List<CtTypeReference<?>> argument_types;
+    private CtTypeReference<?> calledClass;
+    private List<CtTypeReference<?>> argumentTypes;
     /**
      * 链式调用的下一个调用点，自身是调用点且 RoleInParent 是 target，则 getParent 可获得下一个调用点
      */
     private CtInvocation<?> next;
 
-    public AbstractInvocationEntity(String ast_path) {
-        super(ast_path);
+    public AbstractInvocationEntity(String astPath) {
+        super(astPath);
     }
 
     public String getCode() {
@@ -44,36 +44,36 @@ public abstract class AbstractInvocationEntity extends BaseEntity {
         this.code = code;
     }
 
-    public CtElement getDeclaration_in() {
-        return declaration_in;
+    public CtElement getDeclarationIn() {
+        return declarationIn;
     }
 
-    public void setDeclaration_in(CtElement declaration_in) {
-        this.declaration_in = declaration_in;
+    public void setDeclarationIn(CtElement declarationIn) {
+        this.declarationIn = declarationIn;
     }
 
-    public CtExecutableReference<?> getCalled_executable() {
-        return called_executable;
+    public CtExecutableReference<?> getCalledExecutable() {
+        return calledExecutable;
     }
 
-    public void setCalled_executable(CtExecutableReference<?> called_executable) {
-        this.called_executable = called_executable;
+    public void setCalledExecutable(CtExecutableReference<?> calledExecutable) {
+        this.calledExecutable = calledExecutable;
     }
 
-    public CtTypeReference<?> getCalled_class() {
-        return called_class;
+    public CtTypeReference<?> getCalledClass() {
+        return calledClass;
     }
 
-    public void setCalled_class(CtTypeReference<?> called_class) {
-        this.called_class = called_class;
+    public void setCalledClass(CtTypeReference<?> calledClass) {
+        this.calledClass = calledClass;
     }
 
-    public List<CtTypeReference<?>> getArgument_types() {
-        return argument_types;
+    public List<CtTypeReference<?>> getArgumentTypes() {
+        return argumentTypes;
     }
 
-    public void setArgument_types(List<CtTypeReference<?>> argument_types) {
-        this.argument_types = argument_types;
+    public void setArgumentTypes(List<CtTypeReference<?>> argumentTypes) {
+        this.argumentTypes = argumentTypes;
     }
 
     public CtInvocation<?> getNext() {
@@ -90,13 +90,13 @@ public abstract class AbstractInvocationEntity extends BaseEntity {
                 "\n\t\"code\":\"" +
                 code + '\"' +
                 ",\n\t\"declaration_in\":" +
-                declaration_in +
+                declarationIn +
                 ",\n\t\"called_executable\":" +
-                called_executable +
+                calledExecutable +
                 ",\n\t\"called_class\":" +
-                called_class +
+                calledClass +
                 ",\n\t\"argument_types\":" +
-                argument_types +
+                argumentTypes +
                 ",\n\t\"next\":" +
                 next +
                 "\n}";

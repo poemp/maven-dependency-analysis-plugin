@@ -1,4 +1,4 @@
-package org.poem.maven.plugins.spoon.structure;
+package org.poem.maven.plugins.javaparser.structure;
 
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.reference.CtTypeReference;

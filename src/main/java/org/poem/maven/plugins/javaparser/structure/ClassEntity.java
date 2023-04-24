@@ -1,6 +1,6 @@
-package org.poem.maven.plugins.spoon.structure;
+package org.poem.maven.plugins.javaparser.structure;
 
-import org.poem.maven.plugins.spoon.enums.ClassTypeEnum;
+import org.poem.maven.plugins.javaparser.enums.ClassTypeEnum;
 import spoon.reflect.declaration.CtConstructor;
 import spoon.reflect.declaration.CtField;
 import spoon.reflect.declaration.CtMethod;
@@ -25,7 +25,7 @@ public class ClassEntity extends BaseEntity {
     /**
      * 类的类型：类/接口/枚举/注解
      */
-    private ClassTypeEnum class_type;
+    private ClassTypeEnum classType;
     /**
      * 修饰符
      */
@@ -45,17 +45,17 @@ public class ClassEntity extends BaseEntity {
     /**
      * 类其他结构
      */
-    private CtTypeReference<?> super_class;
-    private Set<CtTypeReference<?>> all_super_classes;
-    private Set<CtTypeReference<?>> super_interfaces;
-    private Set<CtTypeReference<?>> all_super_interfaces;
+    private CtTypeReference<?> superClass;
+    private Set<CtTypeReference<?>> allSuperClasses;
+    private Set<CtTypeReference<?>> superInterfaces;
+    private Set<CtTypeReference<?>> allSuperInterfaces;
     private Set<? extends CtConstructor<?>> constructors;
     private List<CtField<?>> fields;
     private Set<CtMethod<?>> methods;
-    private List<CtTypeParameter> type_parameters;
+    private List<CtTypeParameter> typeParameters;
 
-    public ClassEntity(String ast_path) {
-        super(ast_path);
+    public ClassEntity(String astPath) {
+        super(astPath);
     }
 
     @Override
@@ -81,12 +81,12 @@ public class ClassEntity extends BaseEntity {
         this.name = name;
     }
 
-    public ClassTypeEnum getClass_type() {
-        return class_type;
+    public ClassTypeEnum getClassType() {
+        return classType;
     }
 
-    public void setClass_type(ClassTypeEnum class_type) {
-        this.class_type = class_type;
+    public void setClassType(ClassTypeEnum classType) {
+        this.classType = classType;
     }
 
     public String getModifiers() {
@@ -121,36 +121,36 @@ public class ClassEntity extends BaseEntity {
         isShadow = shadow;
     }
 
-    public CtTypeReference<?> getSuper_class() {
-        return super_class;
+    public CtTypeReference<?> getSuperClass() {
+        return superClass;
     }
 
-    public void setSuper_class(CtTypeReference<?> super_class) {
-        this.super_class = super_class;
+    public void setSuperClass(CtTypeReference<?> superClass) {
+        this.superClass = superClass;
     }
 
-    public Set<CtTypeReference<?>> getAll_super_classes() {
-        return all_super_classes;
+    public Set<CtTypeReference<?>> getAllSuperClasses() {
+        return allSuperClasses;
     }
 
-    public void setAll_super_classes(Set<CtTypeReference<?>> all_super_classes) {
-        this.all_super_classes = all_super_classes;
+    public void setAllSuperClasses(Set<CtTypeReference<?>> allSuperClasses) {
+        this.allSuperClasses = allSuperClasses;
     }
 
-    public Set<CtTypeReference<?>> getSuper_interfaces() {
-        return super_interfaces;
+    public Set<CtTypeReference<?>> getSuperInterfaces() {
+        return superInterfaces;
     }
 
-    public void setSuper_interfaces(Set<CtTypeReference<?>> super_interfaces) {
-        this.super_interfaces = super_interfaces;
+    public void setSuperInterfaces(Set<CtTypeReference<?>> superInterfaces) {
+        this.superInterfaces = superInterfaces;
     }
 
-    public Set<CtTypeReference<?>> getAll_super_interfaces() {
-        return all_super_interfaces;
+    public Set<CtTypeReference<?>> getAllSuperInterfaces() {
+        return allSuperInterfaces;
     }
 
-    public void setAll_super_interfaces(Set<CtTypeReference<?>> all_super_interfaces) {
-        this.all_super_interfaces = all_super_interfaces;
+    public void setAllSuperInterfaces(Set<CtTypeReference<?>> allSuperInterfaces) {
+        this.allSuperInterfaces = allSuperInterfaces;
     }
 
     public Set<? extends CtConstructor<?>> getConstructors() {
@@ -177,12 +177,12 @@ public class ClassEntity extends BaseEntity {
         this.methods = methods;
     }
 
-    public List<CtTypeParameter> getType_parameters() {
-        return type_parameters;
+    public List<CtTypeParameter> getTypeParameters() {
+        return typeParameters;
     }
 
-    public void setType_parameters(List<CtTypeParameter> type_parameters) {
-        this.type_parameters = type_parameters;
+    public void setTypeParameters(List<CtTypeParameter> typeParameters) {
+        this.typeParameters = typeParameters;
     }
 
     @Override
@@ -191,7 +191,7 @@ public class ClassEntity extends BaseEntity {
                 "\n\t\"name\":\"" +
                 name + '\"' +
                 ",\n\t\"class_type\":" +
-                class_type +
+                classType +
                 ",\n\t\"modifiers\":\"" +
                 modifiers + '\"' +
                 ",\n\t\"isInner\":" +
@@ -201,13 +201,13 @@ public class ClassEntity extends BaseEntity {
                 ",\n\t\"isShadow\":" +
                 isShadow +
                 ",\n\t\"super_class\":" +
-                super_class +
+                superClass +
                 ",\n\t\"all_super_classes\":" +
-                all_super_classes +
+                allSuperClasses +
                 ",\n\t\"super_interfaces\":" +
-                super_interfaces +
+                superInterfaces +
                 ",\n\t\"all_super_interfaces\":" +
-                all_super_interfaces +
+                allSuperInterfaces +
                 ",\n\t\"constructors\":" +
                 constructors +
                 ",\n\t\"fields\":" +
@@ -215,7 +215,7 @@ public class ClassEntity extends BaseEntity {
                 ",\n\t\"methods\":" +
                 methods +
                 ",\n\t\"type_parameters\":" +
-                type_parameters +
+                typeParameters +
                 "\n}";
     }
 }

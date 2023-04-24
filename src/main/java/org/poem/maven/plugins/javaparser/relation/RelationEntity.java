@@ -1,9 +1,9 @@
-package org.poem.maven.plugins.spoon.relation;
+package org.poem.maven.plugins.javaparser.relation;
 
 
 
-import org.poem.maven.plugins.spoon.enums.RelTypeEnum;
-import org.poem.maven.plugins.spoon.structure.BaseEntity;
+import org.poem.maven.plugins.javaparser.enums.RelTypeEnum;
+import org.poem.maven.plugins.javaparser.structure.BaseEntity;
 
 import java.util.Map;
 import java.util.Objects;
@@ -16,7 +16,7 @@ import java.util.Objects;
 public class RelationEntity {
     private BaseEntity source;
     private BaseEntity target;
-    private RelTypeEnum relation_type;
+    private RelTypeEnum relationType;
     private Map<String, String> properties;
 
     @Override
@@ -30,12 +30,12 @@ public class RelationEntity {
         RelationEntity that = (RelationEntity) o;
         return Objects.equals(source, that.source) &&
                 Objects.equals(target, that.target) &&
-                relation_type == that.relation_type;
+                relationType == that.relationType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(source, target, relation_type);
+        return Objects.hash(source, target, relationType);
     }
 
     public BaseEntity getSource() {
@@ -54,12 +54,12 @@ public class RelationEntity {
         this.target = target;
     }
 
-    public RelTypeEnum getRelation_type() {
-        return relation_type;
+    public RelTypeEnum getRelationType() {
+        return relationType;
     }
 
-    public void setRelation_type(RelTypeEnum relation_type) {
-        this.relation_type = relation_type;
+    public void setRelationType(RelTypeEnum relationType) {
+        this.relationType = relationType;
     }
 
     public Map<String, String> getProperties() {
@@ -77,7 +77,7 @@ public class RelationEntity {
                 ",\n\t\"target\":" +
                 target +
                 ",\n\t\"relation_type\":" +
-                relation_type +
+                relationType +
                 ",\n\t\"properties\":" +
                 properties +
                 "\n}";

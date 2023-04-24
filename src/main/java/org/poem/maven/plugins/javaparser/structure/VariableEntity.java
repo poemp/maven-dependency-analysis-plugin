@@ -1,6 +1,6 @@
-package org.poem.maven.plugins.spoon.structure;
+package org.poem.maven.plugins.javaparser.structure;
 
-import org.poem.maven.plugins.spoon.enums.VariableScopeEnum;
+import org.poem.maven.plugins.javaparser.enums.VariableScopeEnum;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.reference.CtTypeReference;
 
@@ -17,7 +17,7 @@ public class VariableEntity extends BaseEntity {
     /**
      * 容器元素类型，为null则不是容器
      */
-    private List<CtTypeReference<?>> container_items;
+    private List<CtTypeReference<?>> containerItems;
     private String name;
     /**
      * 原始类，若为非基本元素非Object数组：创建关系时直接指向元素类，否则不创建关系
@@ -26,8 +26,8 @@ public class VariableEntity extends BaseEntity {
     private String modifiers;
     private CtExpression<?> assignment;
 
-    public VariableEntity(String ast_path) {
-        super(ast_path);
+    public VariableEntity(String astPath) {
+        super(astPath);
     }
 
     public boolean isArray() {
@@ -46,12 +46,12 @@ public class VariableEntity extends BaseEntity {
         this.scope = scope;
     }
 
-    public List<CtTypeReference<?>> getContainer_items() {
-        return container_items;
+    public List<CtTypeReference<?>> getContainerItems() {
+        return containerItems;
     }
 
-    public void setContainer_items(List<CtTypeReference<?>> container_items) {
-        this.container_items = container_items;
+    public void setContainerItems(List<CtTypeReference<?>> containerItems) {
+        this.containerItems = containerItems;
     }
 
     public String getName() {
@@ -94,7 +94,7 @@ public class VariableEntity extends BaseEntity {
                 ",\n\t\"scope\":" +
                 scope +
                 ",\n\t\"container_items\":" +
-                container_items +
+                containerItems +
                 ",\n\t\"name\":\"" +
                 name + '\"' +
                 ",\n\t\"origin\":" +

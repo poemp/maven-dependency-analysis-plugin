@@ -1,6 +1,6 @@
-package org.poem.maven.plugins.spoon.structure;
+package org.poem.maven.plugins.javaparser.structure;
 
-import org.poem.maven.plugins.spoon.enums.CallerTypeEnum;
+import org.poem.maven.plugins.javaparser.enums.CallerTypeEnum;
 import spoon.reflect.declaration.CtElement;
 
 /**
@@ -13,10 +13,10 @@ public class InvocationEntity extends AbstractInvocationEntity {
     /**
      *  1.静态方法调用 调用者为null 2.对象调用，调用者为CtVariable 3.匿名对象调用，调用者为CtAbstractInvocation
      */
-    private CtElement caller_obj;
+    private CtElement callerObj;
 
-    public InvocationEntity(String ast_path) {
-        super(ast_path);
+    public InvocationEntity(String astPath) {
+        super(astPath);
     }
 
     public CallerTypeEnum getCallerType() {
@@ -27,12 +27,12 @@ public class InvocationEntity extends AbstractInvocationEntity {
         this.callerType = callerType;
     }
 
-    public CtElement getCaller_obj() {
-        return caller_obj;
+    public CtElement getCallerObj() {
+        return callerObj;
     }
 
-    public void setCaller_obj(CtElement caller_obj) {
-        this.caller_obj = caller_obj;
+    public void setCallerObj(CtElement callerObj) {
+        this.callerObj = callerObj;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class InvocationEntity extends AbstractInvocationEntity {
                 "\n\t\"callerType\":" +
                 callerType +
                 ",\n\t\"caller_obj\":" +
-                caller_obj +
+                callerObj +
                 "\n}";
     }
 }

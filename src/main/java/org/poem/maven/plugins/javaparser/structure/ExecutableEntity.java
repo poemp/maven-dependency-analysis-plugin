@@ -1,4 +1,4 @@
-package org.poem.maven.plugins.spoon.structure;
+package org.poem.maven.plugins.javaparser.structure;
 
 import spoon.reflect.code.CtAbstractInvocation;
 import spoon.reflect.code.CtLocalVariable;
@@ -14,9 +14,9 @@ import java.util.List;
  * @author poem
  */
 public abstract class ExecutableEntity extends BaseEntity {
-    private String full_signature;
+    private String fullSignature;
     private String modifiers;
-    private CtType<?> declaration_class;
+    private CtType<?> declarationClass;
     /**
      * 参数列表
      */
@@ -24,7 +24,7 @@ public abstract class ExecutableEntity extends BaseEntity {
     /**
      * 局部变量
      */
-    private List<CtLocalVariable<?>> local_variables;
+    private List<CtLocalVariable<?>> localVariables;
     private List<CtAbstractInvocation<?>> invocations;
 
     public ExecutableEntity(String ast_path) {
@@ -40,15 +40,15 @@ public abstract class ExecutableEntity extends BaseEntity {
             return false;
         }
         ExecutableEntity that = (ExecutableEntity) o;
-        return full_signature.equals(that.full_signature) || getAstPath().equals(that.getAstPath());
+        return fullSignature.equals(that.fullSignature) || getAstPath().equals(that.getAstPath());
     }
 
-    public String getFull_signature() {
-        return full_signature;
+    public String getFullSignature() {
+        return fullSignature;
     }
 
-    public void setFull_signature(String full_signature) {
-        this.full_signature = full_signature;
+    public void setFullSignature(String fullSignature) {
+        this.fullSignature = fullSignature;
     }
 
     public String getModifiers() {
@@ -67,12 +67,12 @@ public abstract class ExecutableEntity extends BaseEntity {
         this.parameters = parameters;
     }
 
-    public List<CtLocalVariable<?>> getLocal_variables() {
-        return local_variables == null ? new ArrayList<>() : local_variables;
+    public List<CtLocalVariable<?>> getLocalVariables() {
+        return localVariables == null ? new ArrayList<>() : localVariables;
     }
 
-    public void setLocal_variables(List<CtLocalVariable<?>> local_variables) {
-        this.local_variables = local_variables;
+    public void setLocalVariables(List<CtLocalVariable<?>> localVariables) {
+        this.localVariables = localVariables;
     }
 
     public List<CtAbstractInvocation<?>> getInvocations() {
@@ -83,27 +83,27 @@ public abstract class ExecutableEntity extends BaseEntity {
         this.invocations = invocations;
     }
 
-    public CtType<?> getDeclaration_class() {
-        return declaration_class;
+    public CtType<?> getDeclarationClass() {
+        return declarationClass;
     }
 
-    public void setDeclaration_class(CtType<?> declaration_class) {
-        this.declaration_class = declaration_class;
+    public void setDeclarationClass(CtType<?> declarationClass) {
+        this.declarationClass = declarationClass;
     }
 
     @Override
     public String toString() {
         return "ExecutableEntity{\n\t" + super.toString() +
                 "\n\t\"full_signature\":\"" +
-                full_signature + '\"' +
+                fullSignature + '\"' +
                 ",\n\t\"modifiers\":\"" +
                 modifiers + '\"' +
                 ",\n\t\"declaration_class\":" +
-                declaration_class +
+                declarationClass +
                 ",\n\t\"parameters\":" +
                 parameters +
                 ",\n\t\"local_variables\":" +
-                local_variables +
+                localVariables +
                 ",\n\t\"invocations\":" +
                 invocations +
                 "\n}";
